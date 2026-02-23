@@ -3,37 +3,43 @@ import os
 
 MODEL_PATH = "services/collaborative_recommendation/model/ppr_results.pkl"
 
-# =========================
-# Load model safely
-# =========================
-
-print("Loading recommendation model...")
-
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(
-        f"Model file not found at {MODEL_PATH}. Run train.py first."
-    )
-
-with open(MODEL_PATH, "rb") as f:
-    ppr_results = pickle.load(f)
-
-print(f"Model loaded successfully. Users in model: {len(ppr_results)}")
+ppr_results = None
 
 
-# =========================
-# Recommendation function
-# =========================
+def load_model():
+    global ppr_results
+
+    if ppr_results is None:
+
+        if not os.path.exists(MODEL_PATH):
+            print("⚠ Collaborative model not found. It will be created at startup.")
+            return None
+
+        print("Loading collaborative recommendation model...")
+
+        with open(MODEL_PATH, "rb") as f:
+            ppr_results = pickle.load(f)
+
+        print(f"Model loaded successfully. Users in model: {len(ppr_results)}")
+
+    return ppr_results
+
 
 def get_recommendations(user_id, top_k=100, fallback=None):
     """
     Returns recommended post IDs for given user_id
     """
 
+    model = load_model()
+
+    if model is None:
+        return []
+
     user_id = str(user_id)
 
     # Personalized recommendations
-    if user_id in ppr_results and ppr_results[user_id]:
-        return ppr_results[user_id][:top_k]
+    if user_id in model and model[user_id]:
+        return model[user_id][:top_k]
 
     # Cold-start fallback
     if fallback is not None:
@@ -41,10 +47,6 @@ def get_recommendations(user_id, top_k=100, fallback=None):
 
     return []
 
-
-# =========================
-# Optional test runner
-# =========================
 
 if __name__ == "__main__":
 
