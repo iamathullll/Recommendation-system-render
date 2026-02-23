@@ -1,0 +1,8 @@
+venv/
+recsys-venv/
+lib/
+bin/
+include/
+__pycache__/
+*.pyc
+.env
