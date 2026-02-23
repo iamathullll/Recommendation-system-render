@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 
-from services.follow_recommendation.config import *
+from config import *
 
 # Load precomputed recommendations
 with open("services/follow_recommendation/model/follow_recommendations.pkl", "rb") as f:

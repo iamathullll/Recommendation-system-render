@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import pandas as pd
 import numpy as np
 
-from .config import (
+from config import (
     MONGO_URI,
     USER_DB,
     USER_COLLECTION,

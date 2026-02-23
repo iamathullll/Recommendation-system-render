@@ -1,7 +1,7 @@
 import os
 import subprocess
 import sys
-
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 from fastapi import FastAPI
 from pydantic import BaseModel
 
