@@ -1,5 +1,5 @@
-from services.collaborative_recommendation.service import get_recommendations
-from services.content_recommendation.recommendation import (
+from recommendation_system.services.collaborative_recommendation.service import get_recommendations
+from recommendation_system.services.content_recommendation.recommendation import (
     recommend_for_user_full,
     item_vectors,
     postid_to_idx,

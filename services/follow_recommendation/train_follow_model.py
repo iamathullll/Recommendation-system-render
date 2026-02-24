@@ -3,9 +3,13 @@ import numpy as np
 import scipy.sparse as sp
 import re
 import pickle
-from services.collaborative_recommendation.data_loader import load_all_data
-from .config import *
+from recommendation_system.services.collaborative_recommendation.data_loader import load_all_data
+from config import *
+BASE_DIR = os.path.dirname(__file__)
+MODEL_DIR = os.path.join(BASE_DIR, "model")
+os.makedirs(MODEL_DIR, exist_ok=True)
 
+MODEL_PATH = os.path.join(MODEL_DIR, "follow_recommendations.pkl")
 # ============================================================
 # LOAD DATA
 # ============================================================
@@ -165,7 +169,7 @@ for user_id in user_ids:
 # Save Model
 # =========================
 
-with open("services/follow_recommendation/model/follow_recommendations.pkl", "wb") as f:
+with open(MODEL_PATH, "wb") as f:
     pickle.dump(precomputed_recs, f)
 
 print("✅ Follow recommendations precomputed and saved.")

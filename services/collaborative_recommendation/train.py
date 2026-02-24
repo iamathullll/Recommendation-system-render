@@ -6,13 +6,17 @@ import numpy as np
 import pandas as pd
 import scipy.sparse as sp
 import torch
-from services.collaborative_recommendation.data_loader import load_all_data
+from recommendation_system.services.collaborative_recommendation.data_loader import load_all_data
 # ============================================================
 # CONFIG
 # ============================================================
 
 DATA_PATH = "data/"
-MODEL_PATH = "services/collaborative_recommendation/model/ppr_results.pkl"
+BASE_DIR = os.path.dirname(__file__)
+MODEL_DIR = os.path.join(BASE_DIR, "model")
+os.makedirs(MODEL_DIR, exist_ok=True)
+
+MODEL_PATH = os.path.join(MODEL_DIR, "ppr_results.pkl")
 
 POST_HALF_LIFE_DAYS = 30
 SOCIAL_ALPHA = 0.7

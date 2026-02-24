@@ -5,8 +5,8 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from services.reranking.rerank import rerank_posts
-from services.follow_recommendation.follow_service import get_follow_recommendations
+from recommendation_system.services.reranking.rerank import rerank_posts
+from recommendation_system.services.follow_recommendation.follow_service import get_follow_recommendations
 
 
 # ============================================================
@@ -27,9 +27,18 @@ def run_module(module_name, label):
 
 
 def train_all_models():
-    run_module("services.content_recommendation.ml.training", "Content")
-    run_module("services.collaborative_recommendation.train", "Collaborative")
-    run_module("services.follow_recommendation.train_follow_model", "Follow")
+    run_module(
+        "recommendation_system.services.content_recommendation.ml.training",
+        "Content"
+    )
+    run_module(
+        "recommendation_system.services.collaborative_recommendation.train",
+        "Collaborative"
+    )
+    run_module(
+        "recommendation_system.services.follow_recommendation.train_follow_model",
+        "Follow"
+    )
 
 
 # ============================================================
@@ -39,10 +48,9 @@ def train_all_models():
 def ensure_models_exist():
 
     required_files = [
-        "services/content_recommendation/ml/artifacts/faiss.index",
-        "services/collaborative_recommendation/model/ppr_results.pkl",
-        "services/follow_recommendation/model/follow_recommendations.pkl",
-    ]
+    "recommendation_system/services/content_recommendation/ml/artifacts/faiss.index",
+    "recommendation_system/services/collaborative_recommendation/model/ppr_results.pkl",
+    "recommendation_system/services/follow_recommendation/model/follow_recommendations.pkl",]
 
     missing = [path for path in required_files if not os.path.exists(path)]
 

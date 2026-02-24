@@ -12,7 +12,7 @@ import faiss
 from pymongo import MongoClient
 from torch.utils.data import Dataset, DataLoader
 
-from services.content_recommendation.ml.models import UserTower, ItemTower
+from recommendation_system.services.content_recommendation.ml.models import UserTower, ItemTower
 
 # ==============================
 # CONFIG
